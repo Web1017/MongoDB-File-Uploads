@@ -6,11 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
 
+     <!-- =======================================================
+        Theme Name: MongoDB Uploads
+        Github: https://github.com/Web1017/MongoDB-File-Uploads
+        Author: Javid Niftaliyev
+        Date: April 2018
+        Start: Type:  npm run dev  -  in the command line to compile
+    ================================================================= -->
+        <style>
+            img { width: 100%; }
+            body{ background: #eaeaea; color: #333;}
+        </style>    
     <title>MongoDB File Uploads</title>
 </head>
 <body>
-    <div class ="container">
+    <div class ="container" id= "section-a">
         <div class ="row">
             <div class ="col-md-6 m-auto">
                 <h1 class="text-center display-4 my-4"> MongoDB File Uploads </h1>
@@ -21,7 +33,7 @@
                     </div>
                     <input type="submit" value="Submit" class="btn btn-primary btn-block">
                 </form>
-                 <hr>
+                  <hr>
         <% if(files){ %>
           <% files.forEach(function(file) { %>
             <div class="card card-body mb-3">
@@ -38,11 +50,11 @@
               <% } else { %>
                 <p>No files to show</p>
                 <% } %>
-            </div>
-        </div>
+      </div>
     </div>
+</div>
     
-    
+
 
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

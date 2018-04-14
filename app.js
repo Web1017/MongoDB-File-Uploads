@@ -14,13 +14,13 @@ const methodOverride  = require ('method-override');
 
 const app = express();
 
-//Middleware
+//The Middleware Section
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 //Mongo URI
-const mongoURI = 'mongodb://<web1017>:<web1017>@ds115701.mlab.com:15701/mongouploads';
+const mongoURI = 'mongodb://web:web1017@ds115701.mlab.com:15701/mongouploads';
 
 //Create Mongo Connection
 const conn = mongoose.createConnection(mongoURI);
@@ -57,35 +57,35 @@ const storage = new GridFsStorage({
   
 
 // Loads form
-app.get('/', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    // Check if files
-    if (!files || files.length === 0) {
-      res.render('index', { files: false });
-    } else {
-      files.map(file => {
-        if (
-          file.contentType === 'image/jpeg' ||
-          file.contentType === 'image/png'
-        ) {
-          file.isImage = true;
-        } else {
-          file.isImage = false;
-        }
-      });
-      res.render('index', { files: files });
-    }
+  app.get('/', (req, res) => {
+    gfs.files.find().toArray((err, files) => {
+      // Check if files
+      if (!files || files.length === 0) {
+        res.render('index', { files: false });
+      } else {
+        files.map(file => {
+          if (
+            file.contentType === 'image/jpeg' ||
+            file.contentType === 'image/png'
+          ) {
+            file.isImage = true;
+          } else {
+            file.isImage = false;
+          }
+        });
+        res.render('index', { files: files });
+      }
+    });
   });
-});
 
 
 //Routes POST /uploads
 // Description: Uploads file to the DataBase
-app.post('/upload', upload.single('file'), (req, res) => {
+  app.post('/upload', upload.single('file'), (req, res) => {
 
-  res.redirect('/');
+    res.redirect('/');
 
-});
+  });
 
 // Route - Get /files/
 // Display all files in JSON
@@ -109,8 +109,8 @@ app.get('/files', (req, res) => {
 
 });
 
-// @route GET /files/:filename
-// @desc  Display single file object
+
+// Display single file object
 app.get('/files/:filename', (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
@@ -147,6 +147,18 @@ app.get('/image/:filename', (req, res) => {
     }
   });
 });
+
+// Delete Route - /files/:id (Delete file)
+app.delete('/files/:id', (req, res) => {
+    gfs.remove({_id: req.params.id, root: 'uploads'}, (err, GridFsStorage) => {
+        if(err) {
+          return res.status(404).json({err: err});
+        }
+
+        res.redirect('/');
+    });
+});
+
 
 const port = 5000;
 
